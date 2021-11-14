@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: "postgres:9.6"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-p@ssw0rd42}
+      PGDATA: /data/postgres
+    volumes:
+      - "./postgres/postgres.conf:/usr/local/etc/postgres/postgres.conf"
+    command: "postgres -c config_file=/usr/local/etc/postgres/postgres.conf"
+    ports:
+     - 5432:5432
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8080:8080"
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:
