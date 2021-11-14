@@ -1,9 +1,17 @@
 # base project - for the bootcamp.
-this repository connected to other repositories as a part of a project, please see below:
 
-https://github.com/entebox/bootcamp-week6_basic_ansible.git
+this project includes the bootcamp app as container + postgres as a container.
 
-https://github.com/entebox/bootcamp_week5-terraform_Project.git
+# how to use:
+
+1) Clone the repo to your local machine
+3) Fill in the missing parts in the ENV file
+4) You will need functioning Docker runtime on your local machine
+5) Also install docker-compose in your machine: 
+https://docs.docker.com/compose/install/
+
+5) Run the command: docker-compose up from the app library
+6) Check localhost:8080
 
 # Node.js Weight Tracker
 
