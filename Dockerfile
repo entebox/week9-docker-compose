@@ -3,6 +3,7 @@ FROM node:14-alpine
 RUN apk add --no-cache bash
 # Create app directory
 RUN mkdir -p /usr/src/app/
+# Use Working directory
 WORKDIR /usr/src/app
 # Copy package.json and package-lock into container
 COPY package*.json /usr/src/app/
@@ -10,11 +11,12 @@ COPY package*.json /usr/src/app/
 RUN npm init -y
 # install all dependencies
 RUN npm install; exit 0
+RUN npm install --save-dev nodemon@2
 RUN npm audit fix --force
 # Copy entire app directory
 COPY . /usr/src/app/
 # expose port
-EXPOSE 8080
+EXPOSE 80
 #run the app
 CMD npm run dev
 
