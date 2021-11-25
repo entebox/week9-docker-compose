@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: postgres_container
-    image: "postgres:9.6"
+    container_name: postgres
+    image: "postgres:12"
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-p@ssw0rd42}
@@ -13,8 +13,6 @@ services:
     command: "postgres -c config_file=/usr/local/etc/postgres/postgres.conf"
     ports:
      - 5432:5432
-    networks:
-      - postgres
     restart: unless-stopped
 
   nodejs:
@@ -26,13 +24,6 @@ services:
     restart: unless-stopped
     env_file: .env
     ports:
-      - "8080:8080"
-    networks:
+      - 80:80
+    depends_on:
       - postgres
-
-networks:
-  postgres:
-    driver: bridge
-
-volumes:
-    postgres:
